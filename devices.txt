@@ -1,0 +1,6 @@
+ac,200,10
+washing_machine,400,9
+dryer,100,5
+roomba,500,7
+microwave,100,4
+ev,150,10
