@@ -10,6 +10,13 @@ consumptions = {
     "Lighting": 0.1362222223,
     "Refrigerator": 0.14,
 }
+
+Microwave = {
+    [0,0,0,0,0,0,0,8,0,0,0,0,9,0,0,0]
+    [0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0]
+}
+
+
 # sorted
 # resultado_escalonamento = {
 # name
