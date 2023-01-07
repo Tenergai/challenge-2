@@ -109,7 +109,7 @@ D10 = {
 # WashingMachine -> Dryer D3 -> D4
 
 
-precedencies = [
+precedences = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
@@ -123,8 +123,13 @@ precedencies = [
 
 ]
 
-print(precedencies)
+print(precedences)
 
 
 def getDevices():
     return [D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]
+
+def getPrecedences():
+    return precedences
+
+
