@@ -10,11 +10,7 @@ def matrixToArray(matrix):
             array.append(element)
     return array
 
-
 # 1st argument --> numbers ranging from 0 to 9,
 # 2nd argument, row = 2, col = 3
-#array = np.random.randint(2, size=(10, 24))
-#print(array)
-
-
-
+# array = np.random.randint(2, size=(10, 24))
+# print(array)
