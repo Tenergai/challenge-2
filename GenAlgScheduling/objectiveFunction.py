@@ -1,6 +1,7 @@
 import numpy as np
-
-price = np.random.rand(24)
+from utils import getPricesForToday
+price = getPricesForToday()
+#np.random.rand(24)
 # print(price)
 
 generation = np.random.randint(10, size=24)
@@ -19,8 +20,8 @@ def multiply_arrays(a, b):
 
 
 def calculateConsumption(hour):
-    devicesOnThatHour = devices[:, hour];
-    consumptionOnThatHour = consumption[:, hour];
+    devicesOnThatHour = devices[:, hour]
+    consumptionOnThatHour = consumption[:, hour]
     # print(devicesOnThatHour)
     # print(consumptionOnThatHour)
     result = multiply_arrays(devicesOnThatHour, consumptionOnThatHour)
@@ -33,10 +34,10 @@ def calculateConsumption(hour):
 def objectiveFunction():
     profit = np.zeros(24)
     for h in range(24):
-        consumptionHour = calculateConsumption(h);
+        consumptionHour = calculateConsumption(h)
         # print("cosumptionHour")
         # print(consumptionHour)
-        profit[h] = price[h] * (generation[h] * consumptionHour);
+        profit[h] = price[h] * (generation[h] * consumptionHour)
 
     totalProfit = sum(profit)
     return profit, totalProfit
