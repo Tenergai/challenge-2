@@ -1,78 +1,59 @@
-import dash
-from dash import dcc
-from dash import html
+import streamlit as sl
 import plotly.express as px
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 import requests
 import pandas as pd
-
-# Initialize the app
-app = dash.Dash()
-
-# Define the layout
-app.layout = html.Div([
-    html.H1('My dashboard'),
-    dcc.Input(id="hour", type="text", placeholder="hour", style={'marginRight':'10px'}),
-    dcc.Input(id="generated_power", type="text", placeholder="generated_power", style={'marginRight':'10px'}),
-    dcc.Input(id="temperatureC", type="text", placeholder="temperatureC", style={'marginRight':'10px'}),
-    dcc.Input(id="dewpointC", type="text", placeholder="dewpointC", style={'marginRight':'10px'}),
-    dcc.Input(id="pressurehPa", type="text", placeholder="pressurehPa", style={'marginRight':'10px'}),
-    dcc.Input(id="wind_direction_degrees", type="text", placeholder="wind_direction_degrees", style={'marginRight':'10px'}),
-    dcc.Input(id="wind_speed_KMH", type="text", placeholder="wind_speed_KMH", style={'marginRight':'10px'}),
-    dcc.Input(id="wind_speed_gustKMH", type="text", placeholder="wind_speed_gustKMH", style={'marginRight':'10px'}),
-    dcc.Input(id="Humidity", type="text", placeholder="Humidity", style={'marginRight':'10px'}),
-    dcc.Input(id="hourly_precipMM", type="text", placeholder="hourly_precipMM", style={'marginRight':'10px'}),
-    dcc.Input(id="daily_rainMM", type="text", placeholder="daily_rainMM", style={'marginRight':'10px'}),
-    dcc.Input(id="solar_radiation_Watts_m2", type="text", placeholder="solar_radiation_Watts_m2", style={'marginRight':'10px'}),
-    
-    html.Button('Submit', id='button'),
-    # Graph to display the data
-    dcc.Graph(id='api-data-graph')
-])
-
-@app.callback(
-    dash.dependencies.Output('api-data-graph', 'figure'),
-    [dash.dependencies.Input('button', 'n_clicks')],
-    [dash.dependencies.State('hour', 'value'),
-    dash.dependencies.State('generated_power', 'value'),
-    dash.dependencies.State('temperatureC', 'value'),
-    dash.dependencies.State('dewpointC', 'value'),
-    dash.dependencies.State('input-2', 'value'),
-    dash.dependencies.State('input-2', 'value')
-    ,dash.dependencies.State('input-2', 'value')]
-)
 
 # Function to fetch the data from the API
 def fetch_data(data):
     # Make the request to the API
-    data = {"array":data}
+    data = {"day":data}
     headers = {'Content-Type': 'application/json'}
-    response = requests.post(f'http://127.0.0.1:5002/predict', json=data, headers=headers)
+    response = requests.post('http://127.0.0.1:5002/predict', json=data, headers=headers)
     # Process the data
     data = response.json()
-    print(data)
     df = pd.DataFrame(data)
     return df
 
-def update_graph(data):
-    # Fetch the data
-    df = pd.read_csv('./datasetFinal.csv')
-    scaler = StandardScaler()
-    names = df.columns
-    d = scaler.fit_transform(df)
-    df = pd.DataFrame(d, columns = names)
-
-    y = df['generated_power']
-    X = df.drop(columns='generated_power')
-
-    x_train, x_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
-    
-    df = fetch_data(x_test)
+""" 8,191,
+9,266,
+10, 2952,
+11, 4559,
+12, 5296,
+13, 2581,
+14, 4181,
+15, 2110,
+16, 822,
+17, 1152,
+18, 418,
+19, 73, """
+def update_graph():
+    day = [[0,8,6,1023,109,1,4,81,0,0,0],
+    [1,8,5,1023,5,1,6,81,0,0,0],
+    [2,7,5,1023,5,4,8,82,0,0,0],
+    [3,7,4,1023,41,8,11,83,0,0,0],
+    [4,6,4,1023,349,1,11,85,0,0,0],
+    [5,6,3,1024,342,0,9,86,0,0,0],
+    [6,6,3,1025,51,1,4,86,0,0,0],
+    [8,8,5,1026,59,4,8,79,0,0,116],
+    [9,9,5,1027,56,14,16,76,0,0,313],
+    [10,10,6,1027,71,4,14,72,0,0,534],
+    [11,13,5,1027,65,8,20,61,0,0,694],
+    [12,14,5,1027,346,25,27,58,0,0,728],
+    [13,14,8,1027,323,14,22,68,0,0,932],
+    [14,14,7,1027,323,14,24,65,0,0,638],
+    [15,14,8,1027,284,29,29,69,0,0,675],
+    [16,14,8,1027,338,19,32,69,0,0,564],
+    [17,14,9,1027,333,17,20,71,0,0,309],
+    [18,12,9,1027,349,9,24,79,0,0,67],
+    [19,12,9,1027,155,11,19,83,0,0,11],
+    [21,12,10,1028,320,3,14,87,0,0,0],
+    [22,12,10,1029,305,1,6,87,0,0,0],
+    [23,12,10,1029,342,3,6,87,0,0,0]]
+    df = fetch_data(day)
     # Create the figure
-    figure = px.bar(df, x='column1', y='column2')
-    return figure
+    sl.line_chart(df)
 
-# Run the app
-if __name__ == '__main__':
-    app.run_server(debug=True)
+
+sl.write("""
+# TenergAI""")
+update_graph()
