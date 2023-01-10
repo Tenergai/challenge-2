@@ -112,8 +112,8 @@ D10 = {
 precedences = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -123,13 +123,13 @@ precedences = [
 
 ]
 
-print(precedences)
+
+# print(precedences)
 
 
 def getDevices():
     return [D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]
 
+
 def getPrecedences():
     return precedences
-
-
