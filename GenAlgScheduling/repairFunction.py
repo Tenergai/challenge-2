@@ -34,7 +34,7 @@ def repairFunction(m):
     for i, row in enumerate(matrixToFix):
         # check hours on
         current_device = devices[i]
-        print("Checking Device: ", i + 1, current_device["name"])
+        print("Checking Device: ", i, current_device["name"])
         hours_on = sum(row)
         print("Necessary Hours: ", current_device["hoursOn"], "Actual Hours Turned On: ", hours_on)
         if current_device["hoursOn"] != hours_on:
@@ -42,6 +42,8 @@ def repairFunction(m):
             # break
         else:
             print("Valid Matrix - Necessary Hours")
+
+        # check consecutive hours
 
         # check possible hours
         hours_device_was_on = np.where(row == 1)
@@ -52,13 +54,14 @@ def repairFunction(m):
         else:
             print("Valid Matrix - Possible Hours")
 
-            # check consecutive hours
         # check precedences
-        print("Current Device: ", i + 1, current_device["name"])
+        print("Current Device: ", i, current_device["name"])
         print("##################")
-        preceded_by = np.where(precedences[i] == 1)
+        preceded_by = list(np.where(precedences[i] == 1))
         print(preceded_by[0])
+
         print("##################")
+            # if 0 - 1, then preceding device hr before must be 1
 
 
 
