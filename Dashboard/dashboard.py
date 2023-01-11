@@ -55,5 +55,6 @@ def update_graph():
 
 
 sl.write("""
-# TenergAI""")
+# TenergAI
+## Solar Generation Prediction """)
 update_graph()
