@@ -2,6 +2,8 @@ import streamlit as sl
 import plotly.express as px
 import requests
 import pandas as pd
+import numpy as np
+
 
 # Function to fetch the data from the API
 def fetch_data(data):
@@ -13,6 +15,43 @@ def fetch_data(data):
     data = response.json()
     df = pd.DataFrame(data)
     return df
+
+matriz = [  [0,1,0],
+            [0,1,1],
+            [0,0,1],
+            [0,0,0],
+            [1,0,1],
+            [1,1,1],
+            [1,1,1],
+            [1,1,0],
+            [1,1,1],
+            [1,0,1],
+            [1,1,0],
+            [1,0,0],
+            [1,0,1],
+            [1,0,0],
+            [0,1,1],
+            [0,1,0],
+            [1,0,0],
+            [1,0,0],
+            [0,0,1],
+            [1,0,0],
+            [1,0,1],
+            [0,1,1],
+            [1,1,1],
+            [0,1,1]]
+print(matriz)    
+
+
+def build_matrix_graph(matrix):
+    for i, hour in enumerate(matrix):
+        for j,device in enumerate(hour):
+            if device == 1:
+                matrix[i][j] = device * (j+1)
+            else:
+                matrix[i][j] = np.nan
+    matrix = pd.DataFrame(matrix,columns= ["device1","device2","device3"])
+    sl.line_chart(matrix)    
 
 """ 8,191,
 9,266,
@@ -58,3 +97,8 @@ sl.write("""
 # TenergAI
 ## Solar Generation Prediction """)
 update_graph()
+
+sl.write("""
+## Device Scheduling
+""")
+build_matrix_graph(matriz)
