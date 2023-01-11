@@ -16,41 +16,18 @@ def fetch_data(data):
     df = pd.DataFrame(data)
     return df
 
-matriz = [  [0,1,0],
-            [0,1,1],
-            [0,0,1],
-            [0,0,0],
-            [1,0,1],
-            [1,1,1],
-            [1,1,1],
-            [1,1,0],
-            [1,1,1],
-            [1,0,1],
-            [1,1,0],
-            [1,0,0],
-            [1,0,1],
-            [1,0,0],
-            [0,1,1],
-            [0,1,0],
-            [1,0,0],
-            [1,0,0],
-            [0,0,1],
-            [1,0,0],
-            [1,0,1],
-            [0,1,1],
-            [1,1,1],
-            [0,1,1]]
-print(matriz)    
-
+mock = np.random.randint(2, size=(10,24))
 
 def build_matrix_graph(matrix):
+    matrix = np.transpose(matrix)
+    matrix = matrix.tolist()
     for i, hour in enumerate(matrix):
         for j,device in enumerate(hour):
             if device == 1:
                 matrix[i][j] = device * (j+1)
             else:
                 matrix[i][j] = np.nan
-    matrix = pd.DataFrame(matrix,columns= ["device1","device2","device3"])
+    matrix = pd.DataFrame(matrix)
     sl.line_chart(matrix)    
 
 """ 8,191,
@@ -92,13 +69,13 @@ def update_graph():
     # Create the figure
     sl.line_chart(df)
 
+sl.write("""
+## Device Scheduling
+""")
+build_matrix_graph(mock)
 
 sl.write("""
 # TenergAI
 ## Solar Generation Prediction """)
 update_graph()
 
-sl.write("""
-## Device Scheduling
-""")
-build_matrix_graph(matriz)
