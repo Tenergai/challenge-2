@@ -16,7 +16,7 @@ def fetch_data(data):
     df = pd.DataFrame(data)
     return df
 
-mock = np.random.randint(2, size=(10,24))
+mock = np.random.randint(2, size=(5,24))
 
 def build_matrix_graph(matrix):
     matrix = np.transpose(matrix)
@@ -30,18 +30,6 @@ def build_matrix_graph(matrix):
     matrix = pd.DataFrame(matrix)
     sl.line_chart(matrix)    
 
-""" 8,191,
-9,266,
-10, 2952,
-11, 4559,
-12, 5296,
-13, 2581,
-14, 4181,
-15, 2110,
-16, 822,
-17, 1152,
-18, 418,
-19, 73, """
 def update_graph():
     day = [[0,8,6,1023,109,1,4,81,0,0,0],
     [1,8,5,1023,5,1,6,81,0,0,0],
@@ -69,13 +57,25 @@ def update_graph():
     # Create the figure
     sl.line_chart(df)
 
-sl.write("""
-## Device Scheduling
-""")
-build_matrix_graph(mock)
 
 sl.write("""
 # TenergAI
 ## Solar Generation Prediction """)
+""" 8,191,
+9,266,
+10, 2952,
+11, 4559,
+12, 5296,
+13, 2581,
+14, 4181,
+15, 2110,
+16, 822,
+17, 1152,
+18, 418,
+19, 73, """
 update_graph()
 
+sl.write("""
+## Device Scheduling
+""")
+build_matrix_graph(mock)
