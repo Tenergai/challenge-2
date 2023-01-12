@@ -7,15 +7,22 @@ from deviceSpecification import getDevices, getPrecedences
 test = [
     [0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1],
     [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0],
-    [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1],
-    [0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+    [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
     [0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0],
     [0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1],
     [0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
     [0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0],
     [0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0],
-    [0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
+
+
+def check_value_in_range(arr, start_index, end_index, value):
+    for i in range(start_index, end_index + 1):
+        if arr[i] == value:
+            return True
+    return False
 
 
 def check_elements(arr1, arr2):
@@ -58,18 +65,17 @@ def repairFunction(m):
                     # consecutives_total.append(consecutives_counter)
                     if consecutives_counter > consecutives_max:
                         consecutives_max = consecutives_counter
-                    elif consecutives_counter < consecutives_min and consecutives_counter != 0:
+                    if consecutives_counter < consecutives_min and consecutives_counter != 0:
                         consecutives_min = consecutives_counter
                     consecutives_counter = 0
             elif row[y] == 0:
                 # consecutives_total.append(consecutives_counter)
                 if consecutives_counter > consecutives_max:
                     consecutives_max = consecutives_counter
-                elif consecutives_counter < consecutives_min and consecutives_counter != 0:
+                if consecutives_counter < consecutives_min and consecutives_counter != 0:
                     consecutives_min = consecutives_counter
                 consecutives_counter = 0
-        #ajeitar isto
-        if current_device["consecutiveHours"] != consecutives_max and current_device[
+        if current_device["consecutiveHours"] != consecutives_max or current_device[
             "consecutiveHours"] != consecutives_min:
             print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
                   consecutives_max, "Min: ", consecutives_min)
@@ -95,8 +101,34 @@ def repairFunction(m):
         print("##########")
         # check precedences
         # print("Current Device: ", i, current_device["name"])
-        preceded_by = list(np.where(precedences[i] == 1))
-        print(preceded_by[0])
+        preceded_by = list(np.where(precedences[i] == 1))[0]
+        print("Preceded by: ")
+        if len(preceded_by) > 0:
+            print(preceded_by)
+            for o, p in enumerate(preceded_by):  # ver cada precedencia
+                preceded_by_matrix = matrixToFix[p]
+                print(row)
+                asdads = row
+                print(preceded_by_matrix)
+                min_index_for_search = 0
+                following_val = 0
+                for index, val in enumerate(row):  # ver cada hora de começo
+                    if index == len(row) - 1:
+                        print("Last iteration")
+                    # print(index,v)
+                    previous_val = row[index - 1]
+                    if index != len(row) - 1:
+                        following_val = row[index + 1]
+                    if val == 1 and previous_val == 0:  # if começou
+                        if check_value_in_range(preceded_by_matrix, min_index_for_search, index - 1, 1):
+                            print("Valid Matrix")
+                        else:
+                            print("Invalid Matrix - Invalid Precedence")
+
+                    elif val == 1 and previous_val == 1 and following_val == 0 and index != len(row) - 1:  # termino do trabalho, avoid last iteration
+                        min_index_for_search = index
+        else:
+            print("None")
 
     # if 0 - 1, then preceding device hr before must be 1
 
