@@ -6,9 +6,7 @@ price = getPricesForToday()
 
 generation = getDailyGeneration()
 
-consumption = np.random.rand(10, 24)
-
-profit = np.zeros(24)
+consumption = np.random.rand(10, 24) # rever este
 
 
 def multiply_arrays(a, b):
