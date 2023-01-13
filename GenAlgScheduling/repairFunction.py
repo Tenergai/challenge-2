@@ -30,6 +30,10 @@ def check_elements(arr1, arr2):
 
 
 def repairFunction(m):
+    necessary_hours_error_counter = 0
+    consecutive_hours_error_counter = 0
+    possible_hours_error_counter = 0
+    precedence_hours_error_counter = 0
     matrixToFix = np.array(m)
     # matrix = m
     # print(matrix)
@@ -41,18 +45,19 @@ def repairFunction(m):
     for i, row in enumerate(matrixToFix):
         # check hours on
         current_device = devices[i]
-        print("##########")
+        # print("##########")
         print("Checking Device: ", i, " - ", current_device["name"])
         hours_on = sum(row)
-        print("Necessary Hours: ", current_device["hoursOn"], "Actual Hours Turned On: ", hours_on)
+        # print("Necessary Hours: ", current_device["hoursOn"], "Actual Hours Turned On: ", hours_on)
         if current_device["hoursOn"] != hours_on:
-            print("Invalid Matrix - Necessary Hours")
-            return False
+            necessary_hours_error_counter += 1
+            # print("Invalid Matrix - Necessary Hours")
+            return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
             print("Valid Matrix - Necessary Hours")
-        print("##########")
-        print("Consecutives: ")
-        print(row)
+        # print("##########")
+        # print("Consecutives: ")
+        # print(row)
         # check consecutive hours
         consecutives_max = 0;
         consecutives_min = 99;
@@ -61,7 +66,7 @@ def repairFunction(m):
             if row[y] == 1:
                 consecutives_counter += 1;
                 if y == len(row) - 1:
-                    print("Last iteration")
+                    # print("Last iteration")
                     # consecutives_total.append(consecutives_counter)
                     if consecutives_counter > consecutives_max:
                         consecutives_max = consecutives_counter
@@ -77,9 +82,9 @@ def repairFunction(m):
                 consecutives_counter = 0
         if current_device["consecutiveHours"] != consecutives_max or current_device[
             "consecutiveHours"] != consecutives_min:
-            print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
-                  consecutives_max, "Min: ", consecutives_min)
-            return False
+            consecutive_hours_error_counter += 1
+            # print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",consecutives_max, "Min: ", consecutives_min)
+            return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
             print("Valid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
                   consecutives_max, "Min: ", consecutives_min)
@@ -90,28 +95,29 @@ def repairFunction(m):
         #   consecutives.append(y)
 
         # print(consecutives)
-        print("##########")
+        # print("##########")
         # check possible hours
         hours_device_was_on = np.where(row == 1)
-        print("Possible Hours: ", current_device["possibleHours"], "Hours it was on: ", hours_device_was_on[0])
+        # print("Possible Hours: ", current_device["possibleHours"], "Hours it was on: ", hours_device_was_on[0])
 
         if not check_elements(hours_device_was_on[0], current_device["possibleHours"]):
-            print("Invalid Matrix - Possible Hours")
-            return False
+            # print("Invalid Matrix - Possible Hours")
+            possible_hours_error_counter += 1
+            return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
             print("Valid Matrix - Possible Hours")
-        print("##########")
+        # print("##########")
         # check precedences
         # print("Current Device: ", i, current_device["name"])
         preceded_by = list(np.where(precedences[i] == 1))[0]
-        print("Preceded by: ")
+        # print("Preceded by: ")
         if len(preceded_by) > 0:
-            print(preceded_by)
+            # print(preceded_by)
             for o, p in enumerate(preceded_by):  # ver cada precedencia
                 preceded_by_matrix = matrixToFix[p]
-                print(row)
+                # print(row)
                 asdads = row
-                print(preceded_by_matrix)
+                # print(preceded_by_matrix)
                 min_index_for_search = 0
                 following_val = 0
                 for index, val in enumerate(row):  # ver cada hora de começo
@@ -123,12 +129,14 @@ def repairFunction(m):
                         following_val = row[index + 1]
                     if val == 1 and previous_val == 0:  # if começou
                         if check_value_in_range(preceded_by_matrix, min_index_for_search, index - 1, 1):
-                            print("Valid Matrix")
+                            print("Valid")
                         else:
-                            print("Invalid Matrix - Invalid Precedence")
-                            return False
+                            # print("Invalid Matrix - Invalid Precedence")
+                            precedence_hours_error_counter += 1
+                            return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
 
-                    elif val == 1 and previous_val == 1 and following_val == 0 and index != len(row) - 1:  # termino do trabalho, avoid last iteration
+                    elif val == 1 and previous_val == 1 and following_val == 0 and index != len(
+                            row) - 1:  # termino do trabalho, avoid last iteration
                         min_index_for_search = index
         else:
             print("None")
@@ -138,7 +146,7 @@ def repairFunction(m):
     # for column in matrix.T:
     # print(column)
 
-    return True
+    return True, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
 
 
 repairFunction(test)
