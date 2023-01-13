@@ -66,16 +66,16 @@ D6 = {
     "consumption": 1.172379667,
     "possibleHours":
         [7, 8, 12, 13, 19, 20],
-    "hoursOn": 1.5,
-    "consecutiveHours": 0.5
+    "hoursOn": 1,
+    "consecutiveHours": 1
 }
 D7 = {
     "name": "Kettle",
     "consumption": 1.99045825,
     "possibleHours":
         [6, 7, 8, 12, 13, 17, 18, 19, 20, 22],
-    "hoursOn": 0.25,
-    "consecutiveHours": 0.25
+    "hoursOn": 1,
+    "consecutiveHours": 1
 }
 D8 = {
     "name": "Lighting",
