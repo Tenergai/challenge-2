@@ -47,7 +47,7 @@ def repairFunction(m):
         print("Necessary Hours: ", current_device["hoursOn"], "Actual Hours Turned On: ", hours_on)
         if current_device["hoursOn"] != hours_on:
             print("Invalid Matrix - Necessary Hours")
-            # break
+            return False
         else:
             print("Valid Matrix - Necessary Hours")
         print("##########")
@@ -79,6 +79,7 @@ def repairFunction(m):
             "consecutiveHours"] != consecutives_min:
             print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
                   consecutives_max, "Min: ", consecutives_min)
+            return False
         else:
             print("Valid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
                   consecutives_max, "Min: ", consecutives_min)
@@ -96,6 +97,7 @@ def repairFunction(m):
 
         if not check_elements(hours_device_was_on[0], current_device["possibleHours"]):
             print("Invalid Matrix - Possible Hours")
+            return False
         else:
             print("Valid Matrix - Possible Hours")
         print("##########")
@@ -124,6 +126,7 @@ def repairFunction(m):
                             print("Valid Matrix")
                         else:
                             print("Invalid Matrix - Invalid Precedence")
+                            return False
 
                     elif val == 1 and previous_val == 1 and following_val == 0 and index != len(row) - 1:  # termino do trabalho, avoid last iteration
                         min_index_for_search = index
@@ -135,7 +138,7 @@ def repairFunction(m):
     # for column in matrix.T:
     # print(column)
 
-    return 0
+    return True
 
 
 repairFunction(test)
