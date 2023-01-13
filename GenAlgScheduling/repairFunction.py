@@ -80,8 +80,8 @@ def repairFunction(m):
                 if consecutives_counter < consecutives_min and consecutives_counter != 0:
                     consecutives_min = consecutives_counter
                 consecutives_counter = 0
-        if current_device["consecutiveHours"] != consecutives_max or current_device[
-            "consecutiveHours"] != consecutives_min:
+        if consecutives_min < current_device["consecutiveHours"]:
+       # if current_device["consecutiveHours"] != consecutives_max or current_device["consecutiveHours"] != consecutives_min:
             consecutive_hours_error_counter += 1
             # print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",consecutives_max, "Min: ", consecutives_min)
             return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter

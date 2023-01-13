@@ -70,8 +70,8 @@ def generateAndRepairTime(n_matrix, mins):
 
 
 
-#result, errors, iterations_ran = generateAndRepair(2, 1000000)
-result, errors, iterations_ran = generateAndRepairTime(2, 5)
+result, errors, iterations_ran = generateAndRepair(2, 10000)
+#result, errors, iterations_ran = generateAndRepairTime(4, 10)
 
 print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 print(result)

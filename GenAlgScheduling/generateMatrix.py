@@ -80,7 +80,8 @@ def getNMatrices(n):
 """
 
 m = generateMatrix(devices)
-print(m)
+if __name__ == "__main__":
+    print(m)
 #print(devices[9])
 #m = experimental(devices[9])
 #print(m, len(m))
