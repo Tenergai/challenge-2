@@ -2,10 +2,9 @@ from deviceSpecification import getDevices
 from utils import matrixToArray,arrayToMatrix
 import numpy as np
 import random
-from objectiveFunction import objectiveFunction
+from objectiveFunction import objectiveFunction,c,r
 from pyeasyga import pyeasyga
 from generateMatrix import generateMatrix
-
 
 devices = getDevices()
 devicesHourly = generateMatrix(devices)
@@ -14,7 +13,7 @@ fitness_function = objectiveFunction
 
 num_generations = 20
 
-num_genes = 24*len(getDevices())
+num_genes = r*c
 r_mut=0.01
 
 # define a function to generate a random individual
@@ -59,7 +58,7 @@ def ga():
                         population_size=num_genes, 
                         generations=num_generations, 
                         crossover_probability = 0.8, 
-                        mutation_probability=0.1, 
+                        mutation_probability=r_mut, 
                         elitism= True, 
                         maximise_fitness= True)
     ga_instance.create_individual=generate_population

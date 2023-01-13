@@ -137,3 +137,10 @@ def getDevices():
 
 def getPrecedences():
     return precedences
+
+def getConsumptions():
+    c=[]
+    for k, v in consumptions.items():
+        c.append(v)
+    return c
+
