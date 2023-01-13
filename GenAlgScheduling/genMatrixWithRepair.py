@@ -9,6 +9,7 @@ import time
 
 # generates n matrices
 def generateAndRepair(n_matrix, max_iter):
+    start_time = time.time()
     sum_necessary_hours_error_counter = 0
     sum_consecutive_hours_error_counter = 0
     sum_possible_hours_error_counter = 0
@@ -28,13 +29,15 @@ def generateAndRepair(n_matrix, max_iter):
         sum_possible_hours_error_counter += poss_hour_error
         sum_precedence_hours_error_counter += precd_hours_error
         if validation:
-            generated_matrix_array.append(a_matrix)
+            generated_matrix_array.append((a_matrix,poss_hour_error))
         curr_iter += 1
 
     errs = [sum_necessary_hours_error_counter, sum_consecutive_hours_error_counter, sum_possible_hours_error_counter,
-              sum_precedence_hours_error_counter]
+            sum_precedence_hours_error_counter]
 
-    return generated_matrix_array, errs, curr_iter
+    end_time = time.time()
+    return generated_matrix_array, errs, curr_iter, end_time - start_time
+
 
 # generates n matrices
 def generateAndRepairTime(n_matrix, mins):
@@ -63,15 +66,13 @@ def generateAndRepairTime(n_matrix, mins):
         curr_iter += 1
 
     errs = [sum_necessary_hours_error_counter, sum_consecutive_hours_error_counter, sum_possible_hours_error_counter,
-              sum_precedence_hours_error_counter]
+            sum_precedence_hours_error_counter]
 
     return generated_matrix_array, errs, curr_iter
 
 
-
-
-result, errors, iterations_ran = generateAndRepair(2, 10000)
-#result, errors, iterations_ran = generateAndRepairTime(4, 10)
+result, errors, iterations_ran, t = generateAndRepair(6, 10000)
+# result, errors, iterations_ran = generateAndRepairTime(4, 10)
 
 print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 print(result)
@@ -80,4 +81,5 @@ print("Necessary Hours Errors: ", errors[0])
 print("Consecutive Hours Errors: ", errors[1])
 print("Possible Hours Errors: ", errors[2])
 print("Precedence Hours Errors: ", errors[3])
+print("Time: ", t, " s ", t / 60, " min")
 print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")

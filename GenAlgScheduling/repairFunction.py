@@ -103,7 +103,7 @@ def repairFunction(m):
         if not check_elements(hours_device_was_on[0], current_device["possibleHours"]):
             # print("Invalid Matrix - Possible Hours")
             possible_hours_error_counter += 1
-            return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
+            # return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
             print("Valid Matrix - Possible Hours")
         # print("##########")
