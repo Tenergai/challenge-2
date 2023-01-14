@@ -77,4 +77,8 @@ def ga():
     ga_instance.fitness_function=objectiveFunction
     ga_instance.crossover_function=crossover
     ga_instance.run()
-    return ga_instance.best_individual(), generation
+    resp=ga_instance.best_individual(),
+    print('ga_sched',resp[0])
+    profit=resp[0][0]
+    finalMatrix=resp[0][1][0][0]
+    return profit, finalMatrix, generation

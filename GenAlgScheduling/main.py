@@ -2,5 +2,6 @@ from ga import ga
 
 
 print('###################################################')
-print('best scheduling\n',ga())
+profit, finalMatrix, generation=ga()
+print('best scheduling\n', profit,'\n', finalMatrix,'\n', generation)
 print('###################################################')
