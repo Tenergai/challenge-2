@@ -7,7 +7,7 @@ from generateMatrix import generateMatrix
 from genMatrixWithRepair import generateAndRepair, validateChild
 
 devices = getDevices()
-devicesHourly, n, o , p=generateAndRepair(1, 100)
+devicesHourly=generateAndRepair(1, 100)
 devicesHourly=devicesHourly[0]
 fitness_function = objectiveFunction
 
@@ -18,13 +18,15 @@ r_mut=0.01
 
 # define a function to generate the initial population
 def generate_population(d):
-    m, n, o , p=generateAndRepair(4, 100)
-    return m[0]
+    m=generateAndRepair(1, 100)
+    return m
 
 # define a function to perform genetic crossover (recombination)
 def crossover(parent1, parent2):
-    parent1=parent1[0]
-    parent2=parent2[0]
+    if isinstance(parent1, list):    
+        parent1=parent1[0][0]
+    if isinstance(parent2, list):    
+        parent2=parent2[0][0]
     parent1=matrixToArray(parent1)
     parent2=matrixToArray(parent2)
     crossover_points = [24,48,72,96,120,144,168,192,216]
@@ -34,8 +36,8 @@ def crossover(parent1, parent2):
     child2=arrayToMatrix(child2)
     r1=validateChild(child1)
     r2=validateChild(child2)
-    child1=(child1,r1[1])
-    child2=(child2,r2[1])
+    child1=[(child1,r1[1])]
+    child2=[(child2,r2[1])]
     if r1[0]==False:
         child1=generateAndRepair(1,100)
     if r2[0]==False:
@@ -44,7 +46,6 @@ def crossover(parent1, parent2):
 
 # define a function to perform mutation
 def mutation(indiv, r_mut):
-    print('i',indiv)
     for i in range(len(indiv)):
         # check for a mutation
         if np.random.rand() < r_mut:
@@ -54,8 +55,13 @@ def mutation(indiv, r_mut):
 
 def mutation2(data):
     data2=[]
+    new_i=[]
     for indiv in data:
-        data2.append(mutation(indiv, r_mut))
+        inds =indiv[0]
+        s=indiv[1]
+        for i in inds:
+            new_i.append(mutation(i, r_mut))
+        data2.append((new_i,s))
         return data2
 def ga():           
     ga_instance = pyeasyga.GeneticAlgorithm(

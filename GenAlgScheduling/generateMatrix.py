@@ -79,8 +79,8 @@ def getNMatrices(n):
     return new_array
 """
 
-m = generateMatrix(devices)
 if __name__ == "__main__":
+    m = generateMatrix(devices)
     print(m)
 #print(devices[9])
 #m = experimental(devices[9])

@@ -23,7 +23,7 @@ def generateAndRepair(n_matrix, max_iter):
     while len(generated_matrix_array) < n_matrix:
         if curr_iter >= max_iter:
             break
-        print("curr_iter: ", curr_iter)
+        # print("curr_iter: ", curr_iter)
         a_matrix = generateMatrix(devices)
         validation, nec_hours_error, consec_hours_error, poss_hour_error, precd_hours_error = repairFunction(a_matrix)
         sum_necessary_hours_error_counter += nec_hours_error
@@ -38,7 +38,7 @@ def generateAndRepair(n_matrix, max_iter):
             sum_precedence_hours_error_counter]
 
     end_time = time.time()
-    return generated_matrix_array, errs, curr_iter, end_time - start_time
+    return generated_matrix_array#, errs, curr_iter, end_time - start_time
 
 
 # generates n matrices
@@ -74,15 +74,15 @@ def generateAndRepairTime(n_matrix, mins):
 
 
 if __name__ == "__main__":
-    result, errors, iterations_ran, t = generateAndRepair(6, 10000)
-    # result, errors, iterations_ran = generateAndRepairTime(4, 10)
+    result, = generateAndRepair(6, 10000)
+    # result, errors, iterations_ran, t errors, iterations_ran = generateAndRepairTime(4, 10)
 
-    print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    print(result)
-    print("Iterations ran:", iterations_ran)
-    print("Necessary Hours Errors: ", errors[0])
-    print("Consecutive Hours Errors: ", errors[1])
-    print("Possible Hours Errors: ", errors[2])
-    print("Precedence Hours Errors: ", errors[3])
-    print("Time: ", t, " s ", t / 60, " min")
-    print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    # print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    # print(result)
+    # print("Iterations ran:", iterations_ran)
+    # print("Necessary Hours Errors: ", errors[0])
+    # print("Consecutive Hours Errors: ", errors[1])
+    # print("Possible Hours Errors: ", errors[2])
+    # print("Precedence Hours Errors: ", errors[3])
+    # print("Time: ", t, " s ", t / 60, " min")
+    # print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
