@@ -34,6 +34,8 @@ def repairFunction(m):
     consecutive_hours_error_counter = 0
     possible_hours_error_counter = 0
     precedence_hours_error_counter = 0
+    if isinstance(m, tuple):
+        m=m[0]
     matrixToFix = np.array(m)
     # matrix = m
     # print(matrix)
@@ -149,4 +151,5 @@ def repairFunction(m):
     return True, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
 
 
-repairFunction(test)
+if __name__ == "__main__":
+    repairFunction(test)

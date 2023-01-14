@@ -10,7 +10,7 @@ price = getPricesForToday()
 generation = getDailyGeneration()
 r=len(generation)
 c=len(getDevices())
-consumption = getConsumptions()#np.random.rand(c, r) # rever este
+consumption = getConsumptions()
 
 def multiply_arrays(a, b):
     return [x * y for x, y in zip(a, b)]
@@ -23,11 +23,14 @@ def calculateConsumption(devicesHourly,hour):
     return sum(result)
 
 
-def objectiveFunction(profit,devicesHourly):
+def objectiveFunction(profit,devicesHourly): 
+    devices=devicesHourly[0]
+    sc=devicesHourly[1]
     profit = np.zeros(r)
     for h in range(r):
-        consumptionHour = calculateConsumption(devicesHourly,h)
+        consumptionHour = calculateConsumption(devices,h)
         profit[h] = price[h] * (generation[h] * consumptionHour)
     totalProfit = sum(profit)
+    totalProfit=sc/totalProfit
     return totalProfit
 

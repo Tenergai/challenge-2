@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 
 class Forecast:
     def __init__(self):
-        df = pd.read_csv('./datasetFinal.csv')
+        df = pd.read_csv('../datasetFinal.csv')
         """ self.scaler = StandardScaler()
         names = df.columns
         d = self.scaler.fit_transform(df)

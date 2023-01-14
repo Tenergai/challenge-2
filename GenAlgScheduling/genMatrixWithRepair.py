@@ -78,15 +78,16 @@ def generateAndRepairTime(n_matrix, mins):
     return generated_matrix_array, errs, curr_iter
 
 
-result, errors, iterations_ran, t = generateAndRepair(6, 10000)
-# result, errors, iterations_ran = generateAndRepairTime(4, 10)
+if __name__ == "__main__":
+    result, errors, iterations_ran, t = generateAndRepair(6, 10000)
+    # result, errors, iterations_ran = generateAndRepairTime(4, 10)
 
-print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-print(result)
-print("Iterations ran:", iterations_ran)
-print("Necessary Hours Errors: ", errors[0])
-print("Consecutive Hours Errors: ", errors[1])
-print("Possible Hours Errors: ", errors[2])
-print("Precedence Hours Errors: ", errors[3])
-print("Time: ", t, " s ", t / 60, " min")
-print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print(result)
+    print("Iterations ran:", iterations_ran)
+    print("Necessary Hours Errors: ", errors[0])
+    print("Consecutive Hours Errors: ", errors[1])
+    print("Possible Hours Errors: ", errors[2])
+    print("Precedence Hours Errors: ", errors[3])
+    print("Time: ", t, " s ", t / 60, " min")
+    print("#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
