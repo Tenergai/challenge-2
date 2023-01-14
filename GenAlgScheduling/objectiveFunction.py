@@ -23,14 +23,17 @@ def calculateConsumption(devicesHourly,hour):
     return sum(result)
 
 
-def objectiveFunction(profit,devicesHourly): 
-    devices=devicesHourly[0]
-    sc=devicesHourly[1]
-    profit = np.zeros(r)
-    for h in range(r):
-        consumptionHour = calculateConsumption(devices,h)
-        profit[h] = price[h] * (generation[h] * consumptionHour)
-    totalProfit = sum(profit)
-    totalProfit=totalProfit/sc
-    return totalProfit
+def objectiveFunction(profit,devicesHourly):
+    t=[] 
+    for devices in devicesHourly:
+        device=devices[0]
+        sc=devices[1]
+        profit = np.zeros(r)
+        for h in range(r):
+            consumptionHour = calculateConsumption(device,h)
+            profit[h] = price[h] * (generation[h] * consumptionHour)
+        totalProfit = sum(profit)
+        totalProfit=totalProfit/sc
+        t.append(totalProfit)
+    return t
 

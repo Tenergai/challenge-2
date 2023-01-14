@@ -14,8 +14,7 @@ for d in devices:
     n=d.get('name')
     names.append(n)
 
-devicesHourly=generateAndRepair(1, 100)
-devicesHourly=devicesHourly[0]
+devicesHourly=generateAndRepair(4, 100)
 fitness_function = objectiveFunction
 
 num_generations = 20
@@ -25,7 +24,7 @@ r_mut=0.01
 
 # define a function to generate the initial population
 def generate_population(d):
-    m=generateAndRepair(1, 100)
+    m=generateAndRepair(4, 100)
     return m
 
 # define a function to perform genetic crossover (recombination)
@@ -85,7 +84,12 @@ def ga():
     ga_instance.crossover_function=crossover
     ga_instance.run()
     resp=ga_instance.best_individual(),
-    print('ga_sched',resp[0])
-    profit=resp[0][0]
-    finalMatrix=resp[0][1][0][0]
+    print(resp[0])
+    profit,finalMatrix=getBestOne(resp[0])
     return profit,names, finalMatrix, generation
+
+def getBestOne(matrix):
+    sc=np.array(matrix[0])
+    iBestOne=np.argmax(sc)
+    finalMatrix=matrix[1][iBestOne][0]
+    return  sc[iBestOne], finalMatrix
