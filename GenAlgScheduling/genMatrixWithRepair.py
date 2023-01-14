@@ -6,6 +6,13 @@ from generateMatrix import generateMatrix, getNMatrices
 from repairFunction import repairFunction
 import time
 
+def validateChild(matrix):
+    validation, nec_hours_error, consec_hours_error, poss_hour_error, precd_hours_error = repairFunction(matrix)
+    return validation, poss_hour_error
+
+
+
+
 
 # generates n matrices
 def generateAndRepair(n_matrix, max_iter):
@@ -29,7 +36,7 @@ def generateAndRepair(n_matrix, max_iter):
         sum_possible_hours_error_counter += poss_hour_error
         sum_precedence_hours_error_counter += precd_hours_error
         if validation:
-            generated_matrix_array.append((a_matrix,poss_hour_error))
+            generated_matrix_array.append((a_matrix, poss_hour_error))
         curr_iter += 1
 
     errs = [sum_necessary_hours_error_counter, sum_consecutive_hours_error_counter, sum_possible_hours_error_counter,
