@@ -30,9 +30,10 @@ def build_matrix_graph(matrix):
     sl.line_chart(matrix)    
 
 def extend_one_hour(matrix):
+    matrix.append()
     for device in range(len(matrix)):
         for hour in range(len(matrix[device])):
-            if hour < 23:
+            if hour < 24:
                 if matrix[device][hour] == 1 and matrix[device][hour+1] == 0:
                     matrix[device][hour+1] = -1
 
