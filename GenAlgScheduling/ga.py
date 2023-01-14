@@ -1,3 +1,5 @@
+import sys
+sys.path.append('./GenAlgScheduling')
 from deviceSpecification import getDevices
 from utils import matrixToArray,arrayToMatrix
 import numpy as np
