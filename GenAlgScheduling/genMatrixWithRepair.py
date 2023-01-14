@@ -10,11 +10,6 @@ def validateChild(matrix):
     validation, nec_hours_error, consec_hours_error, poss_hour_error, precd_hours_error = repairFunction(matrix)
     return validation, poss_hour_error
 
-
-
-
-
-# generates n matrices
 def generateAndRepair(n_matrix, max_iter):
     start_time = time.time()
     sum_necessary_hours_error_counter = 0

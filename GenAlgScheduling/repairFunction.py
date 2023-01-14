@@ -30,12 +30,13 @@ def check_elements(arr1, arr2):
 
 
 def repairFunction(m):
+    bk = 0
     necessary_hours_error_counter = 0
     consecutive_hours_error_counter = 0
     possible_hours_error_counter = 0
     precedence_hours_error_counter = 0
     if isinstance(m, tuple):
-        m=m[0]
+        m = m[0]
     matrixToFix = np.array(m)
     # matrix = m
     # print(matrix)
@@ -48,7 +49,7 @@ def repairFunction(m):
         # check hours on
         current_device = devices[i]
         # print("##########")
-        print("Checking Device: ", i, " - ", current_device["name"])
+        # print("Checking Device: ", i, " - ", current_device["name"])
         hours_on = sum(row)
         # print("Necessary Hours: ", current_device["hoursOn"], "Actual Hours Turned On: ", hours_on)
         if current_device["hoursOn"] != hours_on:
@@ -56,7 +57,8 @@ def repairFunction(m):
             # print("Invalid Matrix - Necessary Hours")
             return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
-            print("Valid Matrix - Necessary Hours")
+            bk += 1
+            # print("Valid Matrix - Necessary Hours")
         # print("##########")
         # print("Consecutives: ")
         # print(row)
@@ -83,13 +85,14 @@ def repairFunction(m):
                     consecutives_min = consecutives_counter
                 consecutives_counter = 0
         if consecutives_min < current_device["consecutiveHours"]:
-       # if current_device["consecutiveHours"] != consecutives_max or current_device["consecutiveHours"] != consecutives_min:
+            # if current_device["consecutiveHours"] != consecutives_max or current_device["consecutiveHours"] != consecutives_min:
             consecutive_hours_error_counter += 1
             # print("Invalid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",consecutives_max, "Min: ", consecutives_min)
             return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
-            print("Valid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
-                  consecutives_max, "Min: ", consecutives_min)
+            #print("Valid consecutive: ", "Consecutive Hours: ", current_device["consecutiveHours"], "Max: ",
+            #      consecutives_max, "Min: ", consecutives_min)
+            bk += 1
         # if row[y] == row[y + 1] and row[y] == 1:
         #   consecutives.append(y)
         #  print("Consecutive 1's found")
@@ -107,7 +110,8 @@ def repairFunction(m):
             possible_hours_error_counter += 1
             # return False, necessary_hours_error_counter, consecutive_hours_error_counter, possible_hours_error_counter, precedence_hours_error_counter
         else:
-            print("Valid Matrix - Possible Hours")
+            bk += 1
+            # print("Valid Matrix - Possible Hours")
         # print("##########")
         # check precedences
         # print("Current Device: ", i, current_device["name"])
@@ -124,14 +128,16 @@ def repairFunction(m):
                 following_val = 0
                 for index, val in enumerate(row):  # ver cada hora de começo
                     if index == len(row) - 1:
-                        print("Last iteration")
+                        bk += 1
+                        # print("Last iteration")
                     # print(index,v)
                     previous_val = row[index - 1]
                     if index != len(row) - 1:
                         following_val = row[index + 1]
                     if val == 1 and previous_val == 0:  # if começou
                         if check_value_in_range(preceded_by_matrix, min_index_for_search, index - 1, 1):
-                            print("Valid")
+                            bk += 1
+                            # print("Valid")
                         else:
                             # print("Invalid Matrix - Invalid Precedence")
                             precedence_hours_error_counter += 1
@@ -141,7 +147,8 @@ def repairFunction(m):
                             row) - 1:  # termino do trabalho, avoid last iteration
                         min_index_for_search = index
         else:
-            print("None")
+            bk += 1
+            # print("None")
 
     # if 0 - 1, then preceding device hr before must be 1
 
