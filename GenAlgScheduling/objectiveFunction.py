@@ -31,6 +31,6 @@ def objectiveFunction(profit,devicesHourly):
         consumptionHour = calculateConsumption(devices,h)
         profit[h] = price[h] * (generation[h] * consumptionHour)
     totalProfit = sum(profit)
-    totalProfit=sc/totalProfit
+    totalProfit=totalProfit/sc
     return totalProfit
 
