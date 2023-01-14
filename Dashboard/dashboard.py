@@ -20,7 +20,8 @@ def fetch_data(data):
 
 best_individual, device_names, matriz, day = ga()
 
-def build_matrix_graph(matrix):
+def build_matrix_graph(matrix):    
+    matrix = matrix.tolist()
     matrix = extend_one_hour(matrix)
     matrix = np.transpose(matrix)
     matrix = matrix.tolist()
@@ -30,10 +31,8 @@ def build_matrix_graph(matrix):
     sl.line_chart(matrix)    
 
 def extend_one_hour(matrix):
-    array = []
-    for i in range(len(matrix)):
-        array.append(0)
-    matrix.append(array)
+    for device in range(len(matrix)):
+        matrix[device].append(0)
     for device in range(len(matrix)):
         for hour in range(len(matrix[device])):
             if hour < 24:
