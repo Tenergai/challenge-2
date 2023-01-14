@@ -2,5 +2,5 @@ from ga import ga
 
 
 print('###################################################')
-print('best individual',ga())
+print('best scheduling\n',ga())
 print('###################################################')

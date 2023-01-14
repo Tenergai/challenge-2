@@ -1,7 +1,7 @@
 from deviceSpecification import getDevices
 from utils import matrixToArray,arrayToMatrix
 import numpy as np
-from objectiveFunction import objectiveFunction,c,r
+from objectiveFunction import objectiveFunction,c,r, generation
 from pyeasyga import pyeasyga
 from generateMatrix import generateMatrix
 from genMatrixWithRepair import generateAndRepair, validateChild
@@ -77,4 +77,4 @@ def ga():
     ga_instance.fitness_function=objectiveFunction
     ga_instance.crossover_function=crossover
     ga_instance.run()
-    return ga_instance.best_individual()
+    return ga_instance.best_individual(), generation
