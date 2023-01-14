@@ -18,7 +18,7 @@ def fetch_data(data):
     df = pd.DataFrame(data)
     return df
 
-best_individual, matriz, day = ga()
+best_individual, device_names, matriz, day = ga()
 
 def build_matrix_graph(matrix):
     matrix = np.transpose(matrix)
@@ -29,7 +29,7 @@ def build_matrix_graph(matrix):
                 matrix[i][j] = device * (j+1)
             else:
                 matrix[i][j] = np.nan
-    matrix = pd.DataFrame(matrix)
+    matrix = pd.DataFrame(matrix, columns=device_names)
     sl.line_chart(matrix)    
 
 def update_graph(day):
