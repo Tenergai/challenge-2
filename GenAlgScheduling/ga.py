@@ -9,6 +9,11 @@ from generateMatrix import generateMatrix
 from genMatrixWithRepair import generateAndRepair, validateChild
 
 devices = getDevices()
+names=[]
+for d in devices:
+    n=d.get('name')
+    names.append(n)
+
 devicesHourly=generateAndRepair(1, 100)
 devicesHourly=devicesHourly[0]
 fitness_function = objectiveFunction
@@ -83,4 +88,4 @@ def ga():
     print('ga_sched',resp[0])
     profit=resp[0][0]
     finalMatrix=resp[0][1][0][0]
-    return profit, finalMatrix, generation
+    return profit,names, finalMatrix, generation
