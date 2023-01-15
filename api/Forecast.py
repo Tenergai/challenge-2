@@ -5,11 +5,11 @@ from sklearn.model_selection import train_test_split
 
 class Forecast:
     def __init__(self):
-        df = pd.read_csv('./datasetFinal.csv')
-        self.scaler = StandardScaler()
+        df = pd.read_csv('../datasetFinal.csv')
+        """ self.scaler = StandardScaler()
         names = df.columns
         d = self.scaler.fit_transform(df)
-        df = pd.DataFrame(d, columns = names)
+        df = pd.DataFrame(d, columns = names) """
 
         y = df['generated_power']
         X = df.drop(columns='generated_power')
@@ -23,6 +23,6 @@ class Forecast:
         self.score = self.model.score(self.x_test,self.y_test)
 
     def predict(self,day):
-        d = self.scaler.transform(day)
-        return self.model.predict(d).tolist()
+        #d = self.scaler.transform(day)
+        return self.model.predict(day).tolist()
 

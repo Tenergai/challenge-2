@@ -1,50 +1,39 @@
 import numpy as np
-from utils import getPricesForToday
+from deviceSpecification import getDevices,getConsumptions
+from generateMatrix import generateMatrix
+from utils import getPricesForToday,getDailyGeneration
+
+devices = getDevices()
+devicesHourly = generateMatrix(devices)
 price = getPricesForToday()
-#np.random.rand(24)
-# print(price)
 
-generation = np.random.randint(10, size=24)
-# print(generation)
-
-devices = np.random.randint(2, size=(10, 24))
-# print(devices)
-
-consumption = np.random.rand(10, 24)
-
-
-# print(consumption)
+generation = getDailyGeneration()
+r=len(generation)
+c=len(getDevices())
+consumption = getConsumptions()
 
 def multiply_arrays(a, b):
     return [x * y for x, y in zip(a, b)]
 
 
-def calculateConsumption(hour):
-    devicesOnThatHour = devices[:, hour]
-    consumptionOnThatHour = consumption[:, hour]
-    # print(devicesOnThatHour)
-    # print(consumptionOnThatHour)
+def calculateConsumption(devicesHourly,hour):
+    devicesOnThatHour = devicesHourly[:, hour]
+    consumptionOnThatHour = consumption
     result = multiply_arrays(devicesOnThatHour, consumptionOnThatHour)
-    # print("result")
-    # print(result)
-    # print("#################")
     return sum(result)
 
 
-def objectiveFunction():
-    profit = np.zeros(24)
-    for h in range(24):
-        consumptionHour = calculateConsumption(h)
-        # print("cosumptionHour")
-        # print(consumptionHour)
-        profit[h] = price[h] * (generation[h] * consumptionHour)
+def objectiveFunction(profit,devicesHourly):
+    t=[] 
+    for devices in devicesHourly:
+        device=devices[0]
+        sc=devices[1]
+        profit = np.zeros(r)
+        for h in range(r):
+            consumptionHour = calculateConsumption(device,h)
+            profit[h] = price[h] * (generation[h] * consumptionHour)
+        totalProfit = sum(profit)
+        totalProfit=totalProfit/sc
+        t.append(totalProfit)
+    return t
 
-    totalProfit = sum(profit)
-    return profit, totalProfit
-
-
-p, total = objectiveFunction()
-print(p)
-print(total)
-
-# calculateConsumption(0)
