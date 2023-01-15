@@ -7,16 +7,22 @@ import sys
 sys.path.append('.')
 from GenAlgScheduling.ga import ga
 
-# Function to fetch the data from the API
-def fetch_data(data):
-    # Make the request to the API
-    data = {"day":data}
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post('http://127.0.0.1:5002/predict', json=data, headers=headers)
+def fetch_rf():
+    response = requests.get('http://127.0.0.1:5002/train_rf')
     # Process the data
     data = response.json()
-    df = pd.DataFrame(data)
-    return df
+    return data['score']
+
+def fetch_dt():
+    response = requests.get('http://127.0.0.1:5002/train_dt')
+    # Process the data
+    data = response.json()
+    return data['score']
+def fetch_svm():
+    response = requests.get('http://127.0.0.1:5002/train_svm')
+    # Process the data
+    data = response.json()
+    return data['score']
 
 best_individual, device_names, matriz, day = ga()
 
@@ -54,11 +60,25 @@ def set_null_values_nan(matrix):
             else:
                 matrix[i][j] = np.nan
     return matrix
-def update_graph(day):
+
+def update_graph(data):
     #df = fetch_data(day)
     # Create the figure
-    sl.line_chart(day)
+    sl.line_chart(data)
 
+option = sl.selectbox(
+        "What model do you want to use?",
+        ("Random Forest", "Decision Trees", "SVR"),
+    )
+
+if option == "Random Forest":
+    score = fetch_rf()
+if option == "Decision Trees":
+    score = fetch_dt()
+if option == "SVR":
+    score = fetch_svm()
+
+sl.write("Score: ",score)
 
 sl.write("""
 # TenergAI
