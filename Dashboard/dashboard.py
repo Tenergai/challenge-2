@@ -63,18 +63,6 @@ def update_graph(day):
 sl.write("""
 # TenergAI
 ## Solar Generation Prediction """)
-""" 8,191,
-9,266,
-10, 2952,
-11, 4559,
-12, 5296,
-13, 2581,
-14, 4181,
-15, 2110,
-16, 822,
-17, 1152,
-18, 418,
-19, 73, """
 update_graph(day)
 
 sl.write("""
